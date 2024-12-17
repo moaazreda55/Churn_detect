@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import joblib
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
@@ -109,28 +110,10 @@ def train_model(X_train, y_train, plot_name, class_weight=None):
             f.write(f"F1-Score of Validation is: {f1_test*100:.2f} %\n")
             f.write('----'*10 + '\n')
 
+    joblib.dump(clf, os.path.join(os.getcwd(), 'models', f'{clf_name}-{plot_name}.pkl'))
 
     return True
 
-
-    # Compute ROC curve and AUC
-    # fpr, tpr, _ = roc_curve(y_test, y_pred_test)
-    # roc_auc = auc(fpr, tpr)
-
-    # # Plot ROC curve and save it to mlflow
-    # plt.figure()
-    # plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
-    # plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-    # plt.xlim([0.0, 1.0])
-    # plt.ylim([0.0, 1.05])
-    # plt.xlabel('False Positive Rate')
-    # plt.ylabel('True Positive Rate')
-    # plt.title('Receiver Operating Characteristic (ROC) Curve')
-    # plt.legend(loc="lower right")
-
-    # # Save the plot to MLflow
-    # roc_fig = plt.gcf()
-    # plt.close()
 
 
 train_model(X_train=X_train_final, y_train=y_train, plot_name='without-imbalance', 
