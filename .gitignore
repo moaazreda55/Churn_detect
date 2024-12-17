@@ -1,6 +1,9 @@
 myenv/
-*.csv
-*.log
-*.zip
 __pycache__/
 .ipynb_checkpoints/
+/data_prep.csv
+/Train_data.csv
+/Test_data.csv
+/Train_label.csv
+/Test_label.csv
+/conf_matrix.png

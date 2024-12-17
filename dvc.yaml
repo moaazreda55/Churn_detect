@@ -1,0 +1,35 @@
+stages:
+  prepare:
+    cmd: python data_prep.py
+    deps:
+      - data_prep.py
+      - Customer-Churn-Records.csv
+    outs:
+      - data_prep.csv
+
+  process:
+    cmd: python data_procss.py
+    deps:
+      - data_procss.py
+      - data_prep.csv
+    outs:
+      - Train_data.csv
+      - Test_data.csv
+      - Train_label.csv
+      - Test_label.csv
+
+  train:
+    cmd: python model_train.py
+    deps:
+      - model_train.py
+      - Train_data.csv
+      - Test_data.csv
+      - Train_label.csv
+      - Test_label.csv
+
+    outs:
+      - conf_matrix.png
+      
+    metrics:
+      - metrics.json:
+          cache: false 
